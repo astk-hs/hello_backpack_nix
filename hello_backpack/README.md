@@ -1,92 +1,62 @@
-to build and run,   
-  navigate to the directory containing cabal.project
+hask@LAPTOP-PQ3KPQAO:~/HelloWorld-backpack/backpack_example/helloDistributed$ nix-build -A helloUse
+these derivations will be built:
+  /nix/store/iwv3knc60s6i3k0na9dda3w05yly4px8-helloUse-0.drv
+building '/nix/store/iwv3knc60s6i3k0na9dda3w05yly4px8-helloUse-0.drv'...
+setupCompilerEnvironmentPhase
+Build with /nix/store/4f3cg8xp7kjmbh0mnvdwz8hir204iivg-ghc-8.8.1.
+unpacking sources
+unpacking source archive /nix/store/ggisndgsm7wqcvwgdnzirlgc67qk47cv-helloUse
+source root is helloUse
+patching sources
+compileBuildDriverPhase
+setupCompileFlags: -package-db=/tmp/nix-build-helloUse-0.drv-0/setup-package.conf.d -j4 -threaded
+[1 of 1] Compiling Main             ( /nix/store/4mdp8nhyfddh7bllbi7xszz7k9955n79-Setup.hs, /tmp/nix-build-helloUse-0.drv-0/Main.o )
+Linking Setup ...
+configuring
+configureFlags: --verbose --prefix=/nix/store/i73dvx5as11g41a5g9zg2qc8wz38a441-helloUse-0 --libdir=$prefix/lib/$compiler --libsubdir=$abi/$libname --with-gcc=gcc --package-db=/tmp/nix-build-helloUse-0.drv-0/package.conf.d --ghc-option=-j4 --disable-split-objs --enable-library-profiling --profiling-detail=exported-functions --disable-profiling --enable-shared --disable-coverage --enable-static --disable-executable-dynamic --enable-tests --disable-benchmarks --enable-library-vanilla --disable-library-for-ghci --ghc-option=-split-sections --extra-lib-dirs=/nix/store/24xdpjcg2bkn2virdabnpncx6f98kgfw-ncurses-6.1-20190112/lib --extra-lib-dirs=/nix/store/qa8wyi9pckq1d3853sgmcc61gs53g0d3-libffi-3.3/lib --extra-lib-dirs=/nix/store/4gmyxj5blhfbn6c7y3agxczrmsm2bhzv-gmp-6.1.2/lib
+Using Parsec parser
+Configuring helloUse-0...
+Dependency base -any: using base-4.13.0.0
+Dependency hello -any: using hello-0
+Dependency base -any: using base-4.13.0.0
+Dependency hello -any: using hello-0
+Dependency helloBackpack -any: using helloBackpack-0
+Source component graph:
+    component exe:hello-example
+    component lib
+Configured component graph:
+    component helloUse-0-IyucxxcTZeiFXHyqipc6qd-hello-example
+        include hello-0-CmjI7ZSeZJiD4texgyxWgH (TestHello as Hello.TestHello) requires (Hello as HelloStrHello)
+        include hello-0-CmjI7ZSeZJiD4texgyxWgH (TestHello as World.TestHello) requires (Hello as WorldStrHello)
+        include base-4.13.0.0
+        include helloBackpack-0-EnQdfdsw04aCzzucMyzZZi
+    component helloUse-0-6fHEVkJjJwiKAc1R7fotU1
+        include base-4.13.0.0
+        include hello-0-CmjI7ZSeZJiD4texgyxWgH
+Linked component graph:
+    unit helloUse-0-IyucxxcTZeiFXHyqipc6qd-hello-example
+        include hello-0-CmjI7ZSeZJiD4texgyxWgH[Hello=helloBackpack-0-EnQdfdsw04aCzzucMyzZZi:HelloStrHello] (TestHello as Hello.TestHello)
+        include hello-0-CmjI7ZSeZJiD4texgyxWgH[Hello=helloBackpack-0-EnQdfdsw04aCzzucMyzZZi:WorldStrHello] (TestHello as World.TestHello)
+        include base-4.13.0.0
+        include helloBackpack-0-EnQdfdsw04aCzzucMyzZZi
+    unit helloUse-0-6fHEVkJjJwiKAc1R7fotU1[Hello=<Hello>]
+        include base-4.13.0.0
+        include hello-0-CmjI7ZSeZJiD4texgyxWgH[Hello=<Hello>]
+Ready component graph:
+    definite helloUse-0-IyucxxcTZeiFXHyqipc6qd-hello-example
+        depends hello-0-CmjI7ZSeZJiD4texgyxWgH+AqdRXPxaDbd6lP4yQjvZcm
+        depends hello-0-CmjI7ZSeZJiD4texgyxWgH+Lv7z3abdM6lG765jGDP6uj
+        depends base-4.13.0.0
+        depends helloBackpack-0-EnQdfdsw04aCzzucMyzZZi
+    indefinite helloUse-0-6fHEVkJjJwiKAc1R7fotU1
+        depends base-4.13.0.0
+        depends hello-0-CmjI7ZSeZJiD4texgyxWgH
+CallStack (from HasCallStack):
+  dieNoWrap, called at libraries/Cabal/Cabal/Distribution/Utils/LogProgress.hs:61:9 in Cabal-3.0.0.0:Distribution.Utils.LogProgress
+Error:
+    The following packages are broken because other packages they depend on are missing. These broken packages must be rebuilt before they can be used.
+planned package helloUse-0 is broken due to missing package hello-0-CmjI7ZSeZJiD4texgyxWgH+AqdRXPxaDbd6lP4yQjvZcm, hello-0-CmjI7ZSeZJiD4texgyxWgH+Lv7z3abdM6lG765jGDP6uj
 
-type;
-> cabal new-run helloUse
-
-this should produce the output;
-"hello world"
-
---
-
-the project works like this;
-
-the cabal.project file lists the packages;
-
-helloStr, worldStr, hello, helloBackpack, helloUse.
-
-package helloStr,
- has a cabal file helloStr.cabal
- which exposes the library helloStr
- made from the HelloStr.hs, 
- which defines hello = "hello" :: String 
-
-package worldStr
- has a cabal file worldStr.cabal
- which exposes the library worldStr
- exporting the module WorldStr.hs, 
- which defines world = "world" :: String 
-
-package hello
- has a cabal file hello.cabal
- which exposes the library hello, and the signature Hello
- exporting the module TestHello.hs, which relies on Hello.hsig 
- .. more details on how this Signature and its Use below
-
-package helloBackpack
- has a cabal file helloBackpack.cabal
- which exposes the library helloBackpack
- exporting the modules HelloStrHello & WorldStrHello 
- .. more details on how these implement str :: String below
-
-package helloUse
- has a cabal file helloUse.cabal
- which exposes the library helloUse, and the executable hello-example
- built from the Main.hs file
- this cabal file is where the mixins are;
-  mixins: hello (TestHello as Hello.TestHello) requires (Hello as HelloStrHello)
-  mixins: hello (TestHello as World.TestHello) requires (Hello as WorldStrHello)
-
-
-.. more details here;
-
-Main.hs consists of the text;
-
-----
-module Main where
-
-import qualified Hello.TestHello as Hello
-import qualified World.TestHello as World
-
-main :: IO ()
-main = do
- Hello.testHello
- putStr " "
- World.testHello
-----
-
-the modules it imports are defined using "mixins" (see above)
-which is where the backpack signature is implemented in 2 different ways.
-its "abstract" function str :: String defined in the Singnature Hello.hsig 
-and this is implemented using the 2 different modules which export a function str :: String ()
-the hello library consists of the signature and a module which import is.
-the mixins implement the Signature as actual modules as specified
-
-----
-module TestHello where
-
-import Hello (str)
-
-testHello :: IO ()
-testHello = putStr str
-----
-
-by importing either HelloStrHello or WorldStrHello instead of Hello
-different values of str are specifed to be either "hello" or "world"
-then, when they are finally used in HelloUse, with the mixins defined quallifed imports, testHello can be called, where its "backpack has been swapped".... meaning that the variable `str' is that exported by either of these different implementations of the signature Hello (str)...
-
-
-
-
-
-
+builder for '/nix/store/iwv3knc60s6i3k0na9dda3w05yly4px8-helloUse-0.drv' failed with exit code 1
+error: build of '/nix/store/iwv3knc60s6i3k0na9dda3w05yly4px8-helloUse-0.drv' failed
+hask@LAPTOP-PQ3KPQAO:~/HelloWorld-backpack/backpack_example/helloDistributed$
