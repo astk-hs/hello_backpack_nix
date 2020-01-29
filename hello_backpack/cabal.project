@@ -1,0 +1,8 @@
+packages: helloStr/ worldStr/ hello/ helloBackpack/ helloUse/
+
+package helloStr
+package worldStr
+package hello
+package helloBackpack
+package helloUse
+
